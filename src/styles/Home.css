@@ -1,0 +1,81 @@
+/* Center the content and give it a vibrant look */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+.home-title {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.home-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.home-button {
+  background-color: white;
+  color: #ff416c;
+  padding: 15px 30px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.home-button:hover {
+  background-color: #ff4b2b;
+  color: white;
+}
+
+/* Add a fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal styling */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 80%;
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}

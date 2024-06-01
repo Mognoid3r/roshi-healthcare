@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.App {
+  padding-bottom: 100px; /* Add some padding to avoid overlap with the nav */
+}
