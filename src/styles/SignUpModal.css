@@ -1,0 +1,98 @@
+/* src/styles/SignUpModal.css */
+
+.signup-modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-modal-content {
+  background-color: #fff;
+  margin: auto;
+  padding: 40px 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: animateTop 0.4s;
+  text-align: center;
+}
+
+@keyframes animateTop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.signup-modal .close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.signup-modal .close:hover,
+.signup-modal .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signup-form input {
+  margin: 10px 0;
+  padding: 12px;
+  width: 80%;
+  max-width: 350px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.signup-form button {
+  margin-top: 10px;
+  padding: 12px 20px;
+  width: 80%;
+  max-width: 350px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.signup-form .google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4285f4;
+  color: white;
+}
+
+.signup-form .google-button img {
+  margin-right: 8px;
+}
+
+.signup-form .error {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
