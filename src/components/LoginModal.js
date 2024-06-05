@@ -26,6 +26,7 @@ const LoginModal = () => {
       navigate("/dashboard");
     } catch (error) {
       console.error("Error logging in:", error);
+      setError("Invalid email or password. Please try again.");
     }
   };
 
@@ -78,6 +79,7 @@ const LoginModal = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              {error && <div className="error-message">{error}</div>}
               <button type="submit">Login</button>
               <button
                 type="button"

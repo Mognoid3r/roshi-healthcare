@@ -2,24 +2,29 @@ const express = require("express");
 const router = express.Router();
 const Program = require("../models/Program");
 
-// Get all programs for a user
-router.get("/:userId", async (req, res) => {
+// Define routes for programs here
+router.get("/", async (req, res) => {
   try {
-    const programs = await Program.find({ userId: req.params.userId });
+    const programs = await Program.find();
     res.json(programs);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
-// Create a new program
 router.post("/", async (req, res) => {
+  const program = new Program({
+    name: req.body.name,
+    description: req.body.description,
+    userId: req.body.userId,
+    exercises: req.body.exercises,
+  });
+
   try {
-    const newProgram = new Program(req.body);
-    const savedProgram = await newProgram.save();
-    res.json(savedProgram);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const newProgram = await program.save();
+    res.status(201).json(newProgram);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 });
 

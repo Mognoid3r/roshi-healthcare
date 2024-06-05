@@ -3,6 +3,33 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 
+// Create a new user
+router.post("/", async (req, res) => {
+  const { uid, email, username } = req.body;
+  console.log("Received data:", req.body); // Log the received data
+  try {
+    const newUser = new User({ uid, email, username });
+    await newUser.save();
+    res.status(201).json(newUser);
+  } catch (error) {
+    console.error("Error storing username in MongoDB:", error.message); // Log errors
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// Fetch user by UID
+router.get("/:uid", async (req, res) => {
+  try {
+    const user = await User.findOne({ uid: req.params.uid });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Get all users
 router.get("/", async (req, res) => {
   try {
@@ -10,17 +37,6 @@ router.get("/", async (req, res) => {
     res.json(users);
   } catch (err) {
     res.status(500).json({ message: err.message });
-  }
-});
-
-// Get a user by ID
-router.get("/:id", async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) throw new Error("User not found");
-    res.json(user);
-  } catch (err) {
-    res.status(404).json({ message: err.message });
   }
 });
 

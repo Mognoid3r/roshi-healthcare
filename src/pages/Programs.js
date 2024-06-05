@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Sidebar from "../components/program/Sidebar";
+import ProgramsSidebar from "../components/ProgramsSidebar";
+import AppLayout from "../components/AppLayout";
+import "../styles/Programs.css"; // Assuming you have a CSS file for styling
 
 const Programs = () => {
   const [programs, setPrograms] = useState([]);
@@ -28,11 +30,36 @@ const Programs = () => {
   );
 
   return (
-    <div className="programs-page">
-      <Sidebar />
-      <div className="programs-content">
-        <h2>Programs</h2>
-        <input
+    <AppLayout>
+      <ProgramsSidebar />
+      <div className="programs-page">
+        <div className="programs-header">
+          <h2>Programs</h2>
+          <input
+            type="text"
+            placeholder="Search programs..."
+            value={filter}
+            onChange={handleFilterChange}
+            className="programs-search"
+          />
+        </div>
+        <div className="programs-list">
+          {filteredPrograms.map((program) => (
+            <div key={program.id} className="program-card">
+              <h3>{program.name}</h3>
+              <p>{program.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </AppLayout>
+  );
+};
+
+export default Programs;
+
+{
+  /* <input
           type="text"
           placeholder="Filter programs"
           value={filter}
@@ -43,10 +70,5 @@ const Programs = () => {
           {filteredPrograms.map((program) => (
             <li key={program._id}>{program.name}</li>
           ))}
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-export default Programs;
+        </ul> */
+}

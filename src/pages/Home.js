@@ -42,16 +42,51 @@
 
 // export default Home;
 
-import React, { useState } from "react";
-// import Login from "../components/Login";
-import SignUpModal from "../components/SignUpModal"; // Update this line
+// import React, { useState } from "react";
+// // import Login from "../components/Login";
+// import SignUpModal from "../components/SignUpModal"; // Update this line
+// import { Navigate } from "react-router-dom";
+// import "../styles/Home.css";
+// import LoginModal from "../components/LoginModal";
+// import { useAuth } from "../hooks/useAuth";
 
-import "../styles/Home.css";
+// const Home = () => {
+//   const [showLogin, setShowLogin] = useState(false);
+//   const [showSignUp, setShowSignUp] = useState(false);
+//   const { user } = useAuth();
+
+//   if (user) {
+//     return <Navigate to="/dashboard" />;
+//   }
+
+//   return (
+//     <div className="home-container">
+//       <h1>Roshi Health</h1>
+//       <div className="home-buttons">
+//         <SignUpModal />
+//         <LoginModal />
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Home;
+
+import React, { useState } from "react";
+import SignUpModal from "../components/SignUpModal";
 import LoginModal from "../components/LoginModal";
+import { Navigate } from "react-router-dom";
+import "../styles/Home.css";
+import { useAuth } from "../hooks/useAuth";
 
 const Home = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
+  const { user } = useAuth();
+
+  if (user) {
+    return <Navigate to="/dashboard" />;
+  }
 
   return (
     <div className="home-container">

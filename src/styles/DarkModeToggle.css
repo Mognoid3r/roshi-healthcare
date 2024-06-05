@@ -1,0 +1,21 @@
+/* src/styles/DarkModeToggle.css */
+
+.dark-mode-toggle {
+  background-color: transparent;
+  border: 2px solid #000;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+[data-theme="light"] .dark-mode-toggle {
+  background-color: #000;
+  color: #fff;
+}
+
+[data-theme="dark"] .dark-mode-toggle {
+  background-color: #fff;
+  color: #000;
+}
