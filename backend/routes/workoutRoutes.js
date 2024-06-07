@@ -8,12 +8,12 @@ const {
 const router = express.Router();
 
 // Route to add a new program
-router.post("/", addProgram);
+router.post("/:userId", addProgram);
 
 // Route to update an existing program
 router.put("/:id", updateProgram);
 
 // Route to get program details
-router.get("/:id", getProgram);
+router.get("/:userId/:id", getProgram);
 
 module.exports = router;

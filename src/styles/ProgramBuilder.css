@@ -1,0 +1,13 @@
+.program-builder {
+  margin-top: 20px;
+}
+
+.workouts-list {
+  margin-top: 20px;
+}
+
+.workout-item {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}

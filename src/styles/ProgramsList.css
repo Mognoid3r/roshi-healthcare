@@ -1,0 +1,129 @@
+.programs-list {
+  padding: 20px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  position: relative;
+  min-height: 100vh;
+  min-width: 100vh;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #007bff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #0056b3;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.create-new-program-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  backdrop-filter: blur(5px);
+}
+
+.create-new-program-modal-content {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  width: 320px;
+  max-width: 90%;
+  position: relative;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.create-new-program-modal-title {
+  color: white;
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: rgba(255, 255, 255, 1);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 15px 0;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 16px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+}
+
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 100%;
+  overflow-y: auto;
+  padding: 20px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.015); /* Glass effect */
+  backdrop-filter: blur(10px); /* Glass effect */
+  border-radius: 10px;
+  min-height: 50vh;
+}
+
+.program-card {
+  background: #444;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+}
+
+.program-card .h3 {
+  color: black;
+}
+
+@media (max-width: 600px) {
+  .create-new-program-modal-content {
+    width: 90%;
+  }
+}
