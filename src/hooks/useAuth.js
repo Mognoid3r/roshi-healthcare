@@ -1,118 +1,3 @@
-// import React, { createContext, useContext, useState, useEffect } from "react";
-// import { auth } from "../services/firebase/firebaseConfig";
-// import {
-//   createUserWithEmailAndPassword,
-//   signInWithEmailAndPassword,
-//   signOut,
-//   onAuthStateChanged,
-// } from "firebase/auth";
-
-// // Create a context for authentication
-// const AuthContext = createContext();
-
-// // Create a custom hook to use the AuthContext
-// export const useAuth = () => {
-//   return useContext(AuthContext);
-// };
-
-// // AuthProvider component to provide authentication state to its children
-// export const AuthProvider = ({ children }) => {
-//   const [currentUser, setCurrentUser] = useState(null);
-//   const [loading, setLoading] = useState(true);
-
-//   // Function to sign up a user
-//   const signup = (email, password) => {
-//     return createUserWithEmailAndPassword(auth, email, password);
-//   };
-
-//   // Function to log in a user
-//   const login = (email, password) => {
-//     return signInWithEmailAndPassword(auth, email, password);
-//   };
-
-//   // Function to log out a user
-//   const logout = () => {
-//     return signOut(auth);
-//   };
-
-//   // Set the current user when the authentication state changes
-//   useEffect(() => {
-//     const unsubscribe = onAuthStateChanged(auth, (user) => {
-//       setCurrentUser(user);
-//       setLoading(false);
-//     });
-
-//     // Clean up the subscription on unmount
-//     return unsubscribe;
-//   }, []);
-
-//   // Value to be provided to the AuthContext
-//   const value = {
-//     currentUser,
-//     signup,
-//     login,
-//     logout,
-//   };
-
-//   return (
-//     <AuthContext.Provider value={value}>
-//       {!loading && children}
-//     </AuthContext.Provider>
-//   );
-// };
-
-// *****************************
-
-// import React, { createContext, useContext, useEffect, useState } from "react";
-// import {
-//   onAuthStateChanged,
-//   signInWithEmailAndPassword,
-//   createUserWithEmailAndPassword,
-//   signOut,
-// } from "firebase/auth";
-// import { auth, db } from "../services/firebase/firebaseConfig";
-// import { doc, setDoc, getDoc } from "firebase/firestore";
-
-// const AuthContext = createContext();
-
-// export const AuthProvider = ({ children }) => {
-//   const [user, setUser] = useState(null);
-//   const [loading, setLoading] = useState(true); // Add a loading state
-
-//   useEffect(() => {
-//     const unsubscribe = onAuthStateChanged(auth, (user) => {
-//       setUser(user || null);
-//       setLoading(false); // Set loading to false once the auth state is determined
-//     });
-
-//     return () => unsubscribe();
-//   }, []);
-
-//   const login = async (email, password) => {
-//     await signInWithEmailAndPassword(auth, email, password);
-//   };
-
-//   const signup = async (email, password) => {
-//     await createUserWithEmailAndPassword(auth, email, password);
-//   };
-
-//   const logout = async () => {
-//     await signOut(auth);
-//   };
-
-//   return (
-//     <AuthContext.Provider value={{ user, login, signup, logout, loading }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// };
-
-// export const useAuth = () => {
-//   return useContext(AuthContext);
-// };
-
-// ****************************
-
 import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   onAuthStateChanged,
@@ -137,18 +22,22 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
+        console.log("Auth state changed, user is logged in:", user.uid);
         const fetchUserData = async () => {
           const docRef = doc(db, "users", user.uid);
           const docSnap = await getDoc(docRef);
           if (docSnap.exists()) {
             setUser({ uid: user.uid, email: user.email, ...docSnap.data() });
+            console.log("User data set in state:", docSnap.data());
           } else {
             setUser(user);
+            console.log("User data not found in Firestore, using Auth data");
           }
         };
         await fetchUserData(); // Await the fetch function
       } else {
         setUser(null);
+        console.log("Auth state changed, no user is logged in");
       }
       setLoading(false);
     });
@@ -157,41 +46,76 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const signup = async (email, password, username) => {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const user = userCredential.user;
-    await setDoc(doc(db, "users", user.uid), {
-      uid: user.uid,
-      email: user.email,
-      username: username,
-      theme: "light", // Set default theme to light
-    });
+    try {
+      console.log("Starting signup process...");
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      console.log("User created in Firebase Auth:", user.uid);
 
-    // Fetch the stored data from Firestore
-    const docRef = doc(db, "users", user.uid);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      setUser({ uid: user.uid, email: user.email, ...docSnap.data() });
-    } else {
-      setUser(user);
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        email: user.email,
+        username: username,
+        theme: "light", // Set default theme to light
+        friends: [], // Ensure the friends field is added
+      });
+      console.log("User document created in Firestore");
+
+      // Fetch the stored data from Firestore
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setUser({ uid: user.uid, email: user.email, ...docSnap.data() });
+        console.log("User data set in state:", docSnap.data());
+      } else {
+        setUser(user);
+        console.log("User data not found in Firestore, using Auth data");
+      }
+    } catch (error) {
+      console.error("Error during signup process:", error);
+      throw error;
     }
   };
 
-  const login = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password); // Sign in with email and password
+  const login = async (email, password) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log("User logged in:", userCredential.user.uid);
+      return userCredential;
+    } catch (error) {
+      console.error("Error during login process:", error);
+      throw error;
+    }
   };
 
-  const logout = () => {
-    return signOut(auth); // Sign out the current user
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      console.log("User logged out");
+    } catch (error) {
+      console.error("Error during logout process:", error);
+      throw error;
+    }
   };
 
   const updateUserTheme = async (uid, theme) => {
-    await setDoc(doc(db, "users", uid), { theme }, { merge: true });
-    setUser((prevUser) => ({ ...prevUser, theme }));
-    document.body.classList.toggle("dark-mode", theme === "dark");
+    try {
+      await setDoc(doc(db, "users", uid), { theme }, { merge: true });
+      setUser((prevUser) => ({ ...prevUser, theme }));
+      document.body.classList.toggle("dark-mode", theme === "dark");
+      console.log("User theme updated:", theme);
+    } catch (error) {
+      console.error("Error updating user theme:", error);
+      throw error;
+    }
   };
 
   const value = {
@@ -209,3 +133,114 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+// ****************************
+
+// import React, { createContext, useContext, useEffect, useState } from "react";
+// import {
+//   onAuthStateChanged,
+//   createUserWithEmailAndPassword,
+//   signInWithEmailAndPassword,
+//   signOut,
+// } from "firebase/auth";
+// import { auth, db } from "../services/firebase/firebaseConfig";
+// import { doc, setDoc, getDoc } from "firebase/firestore";
+
+// // Create a context for authentication
+// const AuthContext = createContext();
+
+// export const useAuth = () => {
+//   return useContext(AuthContext); // Custom hook to use the AuthContext
+// };
+
+// export const AuthProvider = ({ children }) => {
+//   const [user, setUser] = useState(null); // State to hold the user data
+//   const [loading, setLoading] = useState(true); // State to indicate loading status
+
+//   useEffect(() => {
+//     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+//       if (user) {
+//         const fetchUserData = async () => {
+//           const docRef = doc(db, "users", user.uid);
+//           const docSnap = await getDoc(docRef);
+//           if (docSnap.exists()) {
+//             setUser({ uid: user.uid, email: user.email, ...docSnap.data() });
+//           } else {
+//             setUser(user);
+//           }
+//         };
+//         await fetchUserData(); // Await the fetch function
+//       } else {
+//         setUser(null);
+//       }
+//       setLoading(false);
+//     });
+
+//     return unsubscribe;
+//   }, []);
+
+//   const signup = async (email, password, username) => {
+//     try {
+//       console.log("Starting signup process...");
+//       const userCredential = await createUserWithEmailAndPassword(
+//         auth,
+//         email,
+//         password
+//       );
+//       const user = userCredential.user;
+//       console.log("User created in Firebase Auth:", user.uid);
+
+//       await setDoc(doc(db, "users", user.uid), {
+//         uid: user.uid,
+//         email: user.email,
+//         username: username,
+//         theme: "light", // Set default theme to light
+//         friends: [], // Ensure the friends field is added
+//       });
+//       console.log("User document created in Firestore");
+
+//       // Fetch the stored data from Firestore
+//       const docRef = doc(db, "users", user.uid);
+//       const docSnap = await getDoc(docRef);
+//       if (docSnap.exists()) {
+//         setUser({ uid: user.uid, email: user.email, ...docSnap.data() });
+//         console.log("User data set in state:", docSnap.data());
+//       } else {
+//         setUser(user);
+//         console.log("User data not found in Firestore, using Auth data");
+//       }
+//     } catch (error) {
+//       console.error("Error during signup process:", error);
+//       throw error;
+//     }
+//   };
+
+//   const login = (email, password) => {
+//     return signInWithEmailAndPassword(auth, email, password); // Sign in with email and password
+//   };
+
+//   const logout = () => {
+//     return signOut(auth); // Sign out the current user
+//   };
+
+//   const updateUserTheme = async (uid, theme) => {
+//     await setDoc(doc(db, "users", uid), { theme }, { merge: true });
+//     setUser((prevUser) => ({ ...prevUser, theme }));
+//     document.body.classList.toggle("dark-mode", theme === "dark");
+//   };
+
+//   const value = {
+//     user,
+//     loading,
+//     signup,
+//     login,
+//     logout,
+//     updateUserTheme,
+//   };
+
+//   return (
+//     <AuthContext.Provider value={value}>
+//       {!loading && children} {/* Render children only when not loading */}
+//     </AuthContext.Provider>
+//   );
+// };

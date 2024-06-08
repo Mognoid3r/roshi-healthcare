@@ -100,19 +100,19 @@ body.dark-mode h3,
 body.dark-mode h4,
 body.dark-mode h5,
 body.dark-mode h6 {
-  color: #fff;
+  color: #262525;
 }
 
 body.dark-mode input,
 body.dark-mode textarea {
   background-color: #333;
-  color: #fff;
+  color: #ffffff;
   border: 1px solid #555;
 }
 
 body.dark-mode input::placeholder,
 body.dark-mode textarea::placeholder {
-  color: #bbb;
+  color: #c2c2c2;
 }
 
 body.dark-mode button {
