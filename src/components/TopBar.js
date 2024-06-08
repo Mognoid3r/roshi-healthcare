@@ -4,6 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import { auth } from "../services/firebase/firebaseConfig";
 import SearchBar from "./SearchBar";
 import "../styles/TopBar.css";
+import NotificationBell from "./NotificationBell";
 
 const TopBar = () => {
   const { user } = useAuth();
@@ -25,6 +26,7 @@ const TopBar = () => {
         <div className="nav-item">
           <SearchBar onSelect={handleUserSelect} />
         </div>
+        <NotificationBell />
         <button className="nav-button" onClick={handleLogout}>
           Logout
         </button>

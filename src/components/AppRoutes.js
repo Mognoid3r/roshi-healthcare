@@ -1,17 +1,19 @@
 // import React from "react";
-// import { Routes, Route, Navigate } from "react-router-dom";
+// import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 // import { useAuth } from "../hooks/useAuth";
 // import Home from "../pages/Home";
 // import Profile from "../pages/Profile";
 // import Dashboard from "../pages/Dashboard";
 // import Programs from "../pages/Programs";
-// import NotFound from "../pages/NotFound";
-// import Login from "../components/Login";
-// // import SignUp from "../components/SignUp";
 // import Welcome from "../pages/Welcome";
+// import PublicProfile from "../pages/PublicProfile";
+// import NotFound from "../pages/NotFound";
 
 // const AppRoutes = () => {
 //   const { user, loading } = useAuth();
+//   const location = useLocation();
+
+//   console.log("Current location:", location.pathname);
 
 //   if (loading) return <div>Loading...</div>; // Show a loading indicator while determining the auth state
 
@@ -22,11 +24,9 @@
 //         path="/home"
 //         element={user ? <Navigate to="/dashboard" /> : <Home />}
 //       />
-//       <Route path="/login" element={<Login />} />
-//       {/* <Route path="/signup" element={<SignUp />} /> */}
 //       <Route
 //         path="/welcome"
-//         element={user ? <Welcome /> : <Navigate to="/" />}
+//         element={user ? <Welcome /> : <Navigate to="/home" />}
 //       />
 //       <Route
 //         path="/dashboard"
@@ -40,7 +40,10 @@
 //         path="/programs"
 //         element={user ? <Programs /> : <Navigate to="/home" />}
 //       />
-//       <Route path="*" element={<NotFound />} />
+//       <Route path="/user/:username" element={<PublicProfile />} />
+//       {/* Public profile route */}
+//       {/* <Route path="*" element={<NotFound />} /> */}
+//       {/* Catch all unmatched routes */}
 //     </Routes>
 //   );
 // };
@@ -55,7 +58,6 @@ import Profile from "../pages/Profile";
 import Dashboard from "../pages/Dashboard";
 import Programs from "../pages/Programs";
 import NotFound from "../pages/NotFound";
-import Login from "../components/Login";
 import Welcome from "../pages/Welcome";
 import PublicProfile from "../pages/PublicProfile"; // Import PublicProfile
 
@@ -71,7 +73,6 @@ const AppRoutes = () => {
         path="/home"
         element={user ? <Navigate to="/dashboard" /> : <Home />}
       />
-      <Route path="/login" element={<Login />} />
       <Route
         path="/welcome"
         element={user ? <Welcome /> : <Navigate to="/" />}
@@ -88,8 +89,8 @@ const AppRoutes = () => {
         path="/programs"
         element={user ? <Programs /> : <Navigate to="/home" />}
       />
-      <Route path="/profile/:uid" element={<PublicProfile />} />
-      {/* Add the new route */}
+      <Route path="/profile/:username" element={<PublicProfile />} />
+      {/* Public profile route */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
