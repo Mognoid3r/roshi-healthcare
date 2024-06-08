@@ -167,7 +167,7 @@ exports.getUser = async (req, res) => {
     console.log(`Fetching user with ID: ${id}`); // Debugging statement
     const userRef = db.collection("users").doc(id);
     const userDoc = await userRef.get();
-    if (userDoc.exists) {
+    if (userDoc.exists()) {
       console.log(`User data: ${JSON.stringify(userDoc.data())}`); // Debugging statement
       res.status(200).json(userDoc.data());
     } else {

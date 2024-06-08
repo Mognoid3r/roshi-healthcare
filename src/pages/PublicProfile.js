@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import "../styles/PublicProfile.css";
 
 const PublicProfile = () => {
-  const { uid } = useParams(); // This will extract the uid from the URL
+  const { uid } = useParams();
   const [userData, setUserData] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -15,22 +17,24 @@ const PublicProfile = () => {
         setUserData(response.data);
       } catch (error) {
         console.error("Error fetching user:", error);
+        setError("Error fetching user data");
       }
     };
-
-    if (uid) {
-      fetchUser();
-    }
+    fetchUser();
   }, [uid]);
+
+  if (error) {
+    return <div className="error">{error}</div>;
+  }
 
   if (!userData) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div>
+    <div className="public-profile">
       <h1>{userData.username}'s Profile</h1>
-      {/* Display other user data here */}
+      {/* Display other user data as needed */}
     </div>
   );
 };
