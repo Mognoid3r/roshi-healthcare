@@ -98,6 +98,7 @@ const {
   getProgram,
 } = require("../controllers/programController");
 const {
+  addUser,
   addFriend,
   removeFriend,
   searchUsers,
@@ -106,6 +107,9 @@ const {
   sendFriendRequest,
   acceptFriendRequest,
   getNotifications,
+  cancelFriendRequest,
+  clearNotification,
+  clearAllNotifications,
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -133,13 +137,19 @@ router.post("/remove-friend", removeFriend);
 // Route to get user details by username
 router.get("/username/:username", getUserByUsername); // Added this route
 
+// Route to add a new user
+router.post("/add-user", addUser); // Added this route
+
 // Send a friend request
 router.post("/send-friend-request", sendFriendRequest);
-
+// Cancel friend request
+router.post("/cancel-friend-request", cancelFriendRequest); // Add this route
 // Accept a friend request
 router.post("/accept-friend-request", acceptFriendRequest);
 
 // Fetch notifications
 router.get("/:userId/notifications", getNotifications);
+router.post("/clear-notification", clearNotification);
+router.post("/clear-all-notifications", clearAllNotifications);
 
 module.exports = router;

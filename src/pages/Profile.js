@@ -1,6 +1,6 @@
 // src/components/Profile.js
 import React from "react";
-import ExerciseTable from "../components/ExerciseTable";
+// import ExerciseTable from "../components/ExerciseTable";
 import { useAuth } from "../hooks/useAuth";
 import DarkModeToggle from "../components/DarkModeToggle";
 import AppLayout from "../components/AppLayout";
@@ -18,7 +18,7 @@ const Profile = () => {
         <p>Email: {user.email}</p>
         <p>Username: {user.username}</p>
       </div>
-      <ExerciseTable />
+      {/* <ExerciseTable /> */}
     </div>
   );
 };
