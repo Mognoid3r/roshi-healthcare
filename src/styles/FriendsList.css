@@ -1,0 +1,26 @@
+.friends-list {
+  margin-top: 20px;
+}
+
+.friends-list h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.friends-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.friends-list li {
+  margin-bottom: 5px;
+}
+
+.friends-list a {
+  text-decoration: none;
+  color: blue;
+}
+
+.friends-list a:hover {
+  text-decoration: underline;
+}

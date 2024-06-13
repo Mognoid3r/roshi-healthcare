@@ -4,6 +4,7 @@ import React from "react";
 import { useAuth } from "../hooks/useAuth";
 import DarkModeToggle from "../components/DarkModeToggle";
 import AppLayout from "../components/AppLayout";
+import FriendsList from "../components/FriendsList";
 
 const Profile = () => {
   const { user } = useAuth();
@@ -18,7 +19,7 @@ const Profile = () => {
         <p>Email: {user.email}</p>
         <p>Username: {user.username}</p>
       </div>
-      {/* <ExerciseTable /> */}
+      <FriendsList userId={user.uid} />
     </div>
   );
 };

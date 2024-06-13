@@ -60,7 +60,7 @@
 }
 
 .rotary-nav.open .links a:hover {
-  background-color: red;
+  background-color: #ff4800;
 }
 
 /* Background blur effect */

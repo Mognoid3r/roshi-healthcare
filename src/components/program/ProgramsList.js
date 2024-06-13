@@ -1,4 +1,3 @@
-import ProgramBuilder from "../program/ProgramBuilder";
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import {
@@ -13,6 +12,8 @@ import { db } from "../../services/firebase/firebaseConfig";
 import Card from "../program/ProgramsCard";
 import "../../styles/ProgramsList.css";
 import RenameModal from "../../components/RenameModal";
+import ShareProgramModal from "./ShareProgramModal";
+import axios from "axios";
 
 // Define the deepCopyProgram function
 const deepCopyProgram = (program) => {
@@ -27,6 +28,9 @@ const ProgramsList = () => {
   const [currentProgram, setCurrentProgram] = useState(null);
   const [renameModalOpen, setRenameModalOpen] = useState(false);
   const [programToRename, setProgramToRename] = useState(null);
+  const [shareModalOpen, setShareModalOpen] = useState(false);
+  const [programToShare, setProgramToShare] = useState(null);
+  const [friends, setFriends] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -99,9 +103,18 @@ const ProgramsList = () => {
     }
   };
 
-  const handleShareProgram = (program) => {
-    // Implement sharing logic here, e.g., copy link to clipboard, share via email, etc.
-    console.log("Share program:", program);
+  const handleShareProgram = async (friendUserId, programId) => {
+    try {
+      await axios.post("http://localhost:5000/api/users/share-program", {
+        currentUserId: user.uid,
+        friendUserId,
+        programId,
+      });
+      console.log("Program shared successfully");
+      setShareModalOpen(false);
+    } catch (error) {
+      console.error("Error sharing program:", error);
+    }
   };
 
   const handleRenameProgram = (program) => {
@@ -131,6 +144,11 @@ const ProgramsList = () => {
 
   const closeRenameModal = () => {
     setRenameModalOpen(false);
+  };
+
+  const closeShareModal = () => {
+    setShareModalOpen(false);
+    setProgramToShare(null);
   };
 
   const handleKeyPress = (e) => {
@@ -166,29 +184,37 @@ const ProgramsList = () => {
         {programs.map((program) => (
           <Card
             key={program.id}
-            image="https://via.placeholder.com/240x320" // Replace with actual image URL
+            image="https://via.placeholder.com/240x320"
             title={program.name}
             content={program.description || ""}
             username={program.username}
             onDelete={() => handleDeleteProgram(program.id)}
             onDuplicate={() => handleDuplicateProgram(program)}
-            onShare={() => handleShareProgram(program)}
+            onShare={() => {
+              setShareModalOpen(true);
+              setProgramToShare(program);
+            }}
             onRename={() => handleRenameProgram(program)}
             onClick={() => setCurrentProgram(program)}
           />
         ))}
       </div>
-      {currentProgram && <ProgramBuilder program={currentProgram} />}
       <RenameModal
         isOpen={renameModalOpen}
         onClose={closeRenameModal}
         onRename={handleRenameSubmit}
         currentName={programToRename?.name || ""}
       />
+      <ShareProgramModal
+        isOpen={shareModalOpen}
+        onClose={closeShareModal}
+        onShare={(friendUserId) =>
+          handleShareProgram(friendUserId, programToShare.id)
+        }
+        friends={user.friends}
+      />
     </div>
   );
 };
 
 export default ProgramsList;
-
-// **************************************

@@ -110,6 +110,7 @@ const {
   cancelFriendRequest,
   clearNotification,
   clearAllNotifications,
+  shareProgram,
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -146,6 +147,9 @@ router.post("/send-friend-request", sendFriendRequest);
 router.post("/cancel-friend-request", cancelFriendRequest); // Add this route
 // Accept a friend request
 router.post("/accept-friend-request", acceptFriendRequest);
+
+//Share program with friends
+router.post("/share-program", shareProgram);
 
 // Fetch notifications
 router.get("/:userId/notifications", getNotifications);
