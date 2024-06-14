@@ -8,7 +8,8 @@ const CommunityContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  // height: 100vh;
+  // width: 100vw;
   text-align: center;
   color: #333;
   z-index: 1;
@@ -18,22 +19,18 @@ const CommunityContainer = styled.div`
 const Title = styled.h1`
   font-size: 3rem;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
 `;
 
 const Description = styled.p`
   font-size: 1.2rem;
   color: #666;
-`;
 
-const BackgroundWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0; // Ensure background is below all other content
-  pointer-events: none; // Ensure background doesn't interfere with clicking
-  overflow: hidden;
+  @media (max-width: 768px) {
+    font-size: 0.5rem;
+  }
 `;
 
 const Community = () => {
