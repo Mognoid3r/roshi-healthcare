@@ -28,8 +28,9 @@ const AppRoutes = () => {
         path="/welcome"
         element={user ? <Welcome /> : <Navigate to="/" />}
       />
+
       <Route
-        path="/dashboard/*"
+        path="/dashboard"
         element={user ? <Dashboard /> : <Navigate to="/home" />}
       />
 

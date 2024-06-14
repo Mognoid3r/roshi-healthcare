@@ -2,9 +2,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #333;
+  /* padding: 10px 20px; */
+  /* background-color: #333; */
   color: white;
+  position: relative;
+  z-index: 1;
 }
 
 .nav-content {

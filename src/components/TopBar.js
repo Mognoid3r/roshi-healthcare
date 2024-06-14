@@ -27,9 +27,9 @@ const TopBar = () => {
           <SearchBar onSelect={handleUserSelect} />
         </div>
         {/* <NotificationBell /> */}
-        <button className="nav-button" onClick={handleLogout}>
+        {/* <button className="nav-button" onClick={handleLogout}>
           Logout
-        </button>
+        </button> */}
       </div>
     </nav>
   );
