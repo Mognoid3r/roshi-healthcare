@@ -9,7 +9,7 @@ const DashboardContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  // height: 100%;
   text-align: center;
   color: #333;
   z-index: 1;
