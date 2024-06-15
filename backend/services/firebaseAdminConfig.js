@@ -1,5 +1,5 @@
 const admin = require("firebase-admin");
-const serviceAccount = require("../roshi-health-firebase-adminsdk-uncf8-e0cd4ed55e.json");
+const serviceAccount = require("../roshi-health-firebase-adminsdk");
 
 if (!admin.apps.length) {
   admin.initializeApp({
