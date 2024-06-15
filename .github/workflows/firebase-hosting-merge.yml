@@ -39,6 +39,6 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.ROSHI_HEALTH_ADMIN_SDK }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ROSHI_HEALTH }}
           channelId: live
           projectId: roshi-health
