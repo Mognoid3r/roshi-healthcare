@@ -189,7 +189,7 @@ const Card = ({
   const cardRef = useRef(null);
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [menuOpen, setMenuOpen] = useState(false);
-  const [gradient, setGradient] = useState(getRandomGradient());
+  const [gradient] = useState(getRandomGradient());
 
   useEffect(() => {
     const handleClickOutside = (event) => {

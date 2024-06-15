@@ -1,27 +1,4 @@
-// // src/components/Profile.js
-// import React from "react";
-// // import ExerciseTable from "../components/ExerciseTable";
-// import AppLayout from "../components/AppLayout";
-
-// const Profile = () => {
-//   const { user } = useAuth();
-
-//   return (
-//     <div>
-//       <AppLayout />
-//       <h2>Profile Page</h2>
-//       <div className="profile-page">
-//         <h2>Profile</h2>
-//         <p>Email: {user.email}</p>
-//         <p>Username: {user.username}</p>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Profile;
-
-import React, { useState } from "react";
+import React from "react";
 import { useAuth } from "../hooks/useAuth";
 import styled from "styled-components";
 import PageLayout from "../components/PageLayout";

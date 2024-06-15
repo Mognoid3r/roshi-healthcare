@@ -15,7 +15,7 @@ const RotaryNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [notificationCount, setNotificationCount] = useState(0);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { user } = useAuth(); // Access user from useAuth
 
   useEffect(() => {

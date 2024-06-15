@@ -1,38 +1,19 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import { auth } from "../services/firebase/firebaseConfig";
+// import { useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import "../styles/TopBar.css";
-// import NotificationBell from "./NotificationBell";
 
 const TopBar = () => {
-  const { user } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    auth.signOut();
-    navigate("/"); // Redirect to Home page after logout
-  };
+  //   const navigate = useNavigate();
 
   const handleUserSelect = (username) => {
     console.log("Selected user:", username);
     // Implement additional logic if needed
   };
-
   return (
     <nav className="topbar">
-      <div className="nav-content">
-        <div className="nav-item">
-          <SearchBar onSelect={handleUserSelect} />
-        </div>
-        {/* <NotificationBell /> */}
-        {/* <button className="nav-button" onClick={handleLogout}>
-          Logout
-        </button> */}
-      </div>
+      <SearchBar onSelect={handleUserSelect} />
     </nav>
   );
 };
-
 export default TopBar;
