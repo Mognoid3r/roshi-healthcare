@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as tinycolor from "tinycolor2";
 import { Delaunay } from "d3-delaunay";
-import * as dat from "dat.gui";
+// import * as dat from "dat.gui";
 
 const Tback = ({ color }) => {
   const canvasRef = useRef(null);
@@ -197,7 +197,7 @@ const Tback = ({ color }) => {
           c.connections = 0;
         }
       } else {
-        const dispos = triangles.filter((t) => t.connections < 3);
+        // const dispos = triangles.filter((t) => t.connections < 3);
         const c = triangles[Math.floor(Math.random() * triangles.length)];
         c.connections++;
         connected.push(c);
