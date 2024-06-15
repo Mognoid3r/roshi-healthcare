@@ -30,7 +30,7 @@ const ProgramsList = () => {
   const [programToRename, setProgramToRename] = useState(null);
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const [programToShare, setProgramToShare] = useState(null);
-  const [friends, setFriends] = useState([]);
+  // const [friends, setFriends] = useState([]);
 
   useEffect(() => {
     if (user) {

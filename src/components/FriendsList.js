@@ -53,7 +53,6 @@
 // Not sure if above code was used anywhere.
 
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useAuth } from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import "../styles/FriendsList.css";

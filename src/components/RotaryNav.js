@@ -6,7 +6,6 @@ import {
   FaBell,
   FaTimes,
 } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import "../styles/RotaryNav.css";
 import NotificationModal from "./NotificationModal";
 import { useAuth } from "../hooks/useAuth";
