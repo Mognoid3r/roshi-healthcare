@@ -72,7 +72,9 @@
 
 // export default Home;
 
-import React, { useState } from "react";
+import React from "react";
+// import React, { useState } from "react";
+
 import SignUpModal from "../components/SignUpModal";
 import LoginModal from "../components/LoginModal";
 import { Navigate } from "react-router-dom";
@@ -80,8 +82,8 @@ import "../styles/Home.css";
 import { useAuth } from "../hooks/useAuth";
 
 const Home = () => {
-  const [showLogin, setShowLogin] = useState(false);
-  const [showSignUp, setShowSignUp] = useState(false);
+  // const [showLogin, setShowLogin] = useState(false);
+  // const [showSignUp, setShowSignUp] = useState(false);
   const { user } = useAuth();
 
   if (user) {
