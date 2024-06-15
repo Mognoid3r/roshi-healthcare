@@ -114,7 +114,7 @@ const BackgroundWrapper = styled.div`
 `;
 
 const ToggleButton = styled.div`
-  background: #1e1e2f;
+  background: #1F1D2B;
   border: none;
   clip-path: polygon(0 0, 100% 0, 100% 65%, 0% 100%);
   color: white;
@@ -131,6 +131,9 @@ const ToggleButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+ @media (max-width: 768px) {
+    left: ${(props) => (props.isCollapsed ? "-1px" : "249px")};
 `;
 
 const PageLayout = ({ children }) => {

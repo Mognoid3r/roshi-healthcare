@@ -18,11 +18,15 @@ const SidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
   transition: width 0.3s;
-  background-color: #1e1e2f;
+  background-color: #1F1D2B;
   color: #a1a1b3;
   position: fixed;
   overflow: hidden;
   z-index: 1;
+
+
+  @media (max-width: 768px) {
+    width: ${(props) => (props.collapsed ? "0px" : "250px")};
 `;
 
 const SidebarHeader = styled.div`
@@ -34,7 +38,7 @@ const SidebarHeader = styled.div`
 
   .logo {
     flex-shrink: 0;
-    color: white;
+    fill: #ff4800;
   }
 
   .logo-expand {
@@ -113,18 +117,30 @@ const NavItem = styled(Link)`
   display: flex;
   padding: 10px 15px;
   color: ${(props) => (props.active ? "white" : "#a1a1b3")};
-  text-decoration: none;
+  //   text-decoration: none;
   transition: background-color 0.3s;
 
   &:hover {
-    color: white;
-    background-color: #303044;
+    .icon {
+      color: #f1f1f2;
+      background: #00ddff;
+    }
+    .text {
+      font-weight: 600;
+      text-decoration: none;
+    }
   }
 
   .icon {
     flex-shrink: 0;
     margin-right: 10px;
     font-size: 18px;
+    height: 28px;
+    width: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .text {
