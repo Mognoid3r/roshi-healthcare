@@ -12,7 +12,7 @@ const FriendRequestButton = ({ friendUsername }) => {
     const fetchFriendData = async () => {
       try {
         const friendUsernameDoc = await axios.get(
-          `http://localhost:5000/api/users/username/${friendUsername}`
+          `${process.env.REACT_APP_API_BASE_URL}/api/users/username/${friendUsername}`
         );
         const friendUid = friendUsernameDoc.data.uid;
 
@@ -33,10 +33,13 @@ const FriendRequestButton = ({ friendUsername }) => {
 
   const sendFriendRequest = async () => {
     try {
-      await axios.post("http://localhost:5000/api/users/send-friend-request", {
-        currentUserId: currentUser.uid,
-        friendUsername,
-      });
+      await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/users/send-friend-request`,
+        {
+          currentUserId: currentUser.uid,
+          friendUsername,
+        }
+      );
       setIsPending(true);
     } catch (error) {
       console.error("Error sending friend request:", error);
@@ -46,7 +49,7 @@ const FriendRequestButton = ({ friendUsername }) => {
   const cancelFriendRequest = async () => {
     try {
       await axios.post(
-        "http://localhost:5000/api/users/cancel-friend-request",
+        `${process.env.REACT_APP_API_BASE_URL}/api/users/cancel-friend-request`,
         {
           currentUserId: currentUser.uid,
           friendUsername,
@@ -61,10 +64,13 @@ const FriendRequestButton = ({ friendUsername }) => {
   const removeFriend = async () => {
     try {
       console.log(`Removing friend with username: ${friendUsername}`);
-      await axios.post("http://localhost:5000/api/users/remove-friend", {
-        currentUserId: currentUser.uid,
-        friendUsername,
-      });
+      await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/users/remove-friend`,
+        {
+          currentUserId: currentUser.uid,
+          friendUsername,
+        }
+      );
       console.log("Friend removed successfully");
       setIsFriend(false);
     } catch (error) {

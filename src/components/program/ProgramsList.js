@@ -105,11 +105,14 @@ const ProgramsList = () => {
 
   const handleShareProgram = async (friendUserId, programId) => {
     try {
-      await axios.post("http://localhost:5000/api/users/share-program", {
-        currentUserId: user.uid,
-        friendUserId,
-        programId,
-      });
+      await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/users/share-program`,
+        {
+          currentUserId: user.uid,
+          friendUserId,
+          programId,
+        }
+      );
       console.log("Program shared successfully");
       setShareModalOpen(false);
     } catch (error) {

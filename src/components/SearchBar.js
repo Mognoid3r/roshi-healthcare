@@ -19,7 +19,7 @@ const SearchBar = () => {
     }
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/users/search-users?username=${e.target.value}`
+        `${process.env.REACT_APP_API_BASE_URL}/api/users/search-users?username=${e.target.value}`
       );
       setSearchResults(response.data);
       setShowDropdown(true);

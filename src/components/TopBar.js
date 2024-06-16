@@ -1,14 +1,14 @@
 import React from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import "../styles/TopBar.css";
 
 const TopBar = () => {
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleUserSelect = (username) => {
     console.log("Selected user:", username);
-    // Implement additional logic if needed
+    navigate(`/profile/${username}`);
   };
   return (
     <nav className="topbar">

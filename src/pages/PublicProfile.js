@@ -29,7 +29,7 @@ const PublicProfile = () => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/users/username/${username}`
+          `${process.env.REACT_APP_API_BASE_URL}/api/users/username/${username}`
         );
         setUserData(response.data);
       } catch (error) {

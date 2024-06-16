@@ -65,7 +65,7 @@ const NotificationModal = ({
   const clearAllNotifications = async () => {
     try {
       await axios.post(
-        "http://localhost:5000/api/users/clear-all-notifications",
+        "${process.env.REACT_APP_API_BASE_URL}/api/users/clear-all-notifications",
         {
           currentUserId,
         }
